@@ -6,7 +6,7 @@ public interface IToDoList{
     void addTask(Task task);
     void completeTask(String id);
     void deleteTask(String id);
-    void editTask(String id, String newTitle, boolean newlsCompleted);
+    void editTask(String id, String newTitle, boolean newIsCompleted);
     void undo();
     List<Task> listTasks();
 
