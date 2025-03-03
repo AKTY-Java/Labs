@@ -23,8 +23,8 @@ class ToDoList implements IToDoList {
         int taskIndex;
         Task task;
         taskIndex = search(id);
-        task = taskList.get(taskIndex);
         if (task == id) {
+            task = taskList.get(taskIndex);
             task.setIsCompleted(true);
         }
     }
