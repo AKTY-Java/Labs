@@ -26,36 +26,37 @@ public class Task {
         return new Task(this.id, this.title, this.isCompleted);
     }
 
-    //getters
-    public String getId() {
-        return id;
+    public void setIsCompleted(boolean completed) {
+        this.isCompleted = completed;
+    }
+
+    public boolean getIsCompleted() {
+        return isCompleted;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    //setters
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public String getId() {
+        return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Task task = (Task) obj;
-        return isCompleted == task.isCompleted &&
-                Objects.equals(id, task.id) &&
-                Objects.equals(title, task.title);
+        return Objects.equals(id, task.id) &&
+                Objects.equals(title, task.title) &&
+                isCompleted == task.isCompleted;
     }
 
     @Override
