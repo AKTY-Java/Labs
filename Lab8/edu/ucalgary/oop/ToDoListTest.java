@@ -1,4 +1,4 @@
-package edu.ucalgary.oop.edu.ucalgary.oop;
+package edu.ucalgary.oop;
 
 import org.junit.Before;
 import org.junit.Test;
