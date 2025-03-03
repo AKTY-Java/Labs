@@ -7,56 +7,56 @@ public class Task {
     private String title;
     private boolean isCompleted;
 
-    //constructor used in tests
+    // Constructor used in tests (sets isCompleted to false by default)
     public Task(String id, String title) {
         this.id = id;
         this.title = title;
         this.isCompleted = false;
     }
 
-    //constructor if you want to initialize isCompleted
+    // Optional constructor if you want to initialize isCompleted
     public Task(String id, String title, boolean isCompleted) {
         this.id = id;
         this.title = title;
         this.isCompleted = isCompleted;
     }
 
-    //deep copy
+    // Deep copy method
     public Task copy() {
         return new Task(this.id, this.title, this.isCompleted);
     }
 
-    public void setIsCompleted(boolean completed) {
-        this.isCompleted = completed;
-    }
-
-    public boolean getIsCompleted() {
-        return isCompleted;
+    // Getters
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    // Setters
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getId() {
-        return id;
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    // The equals and hashCode methods are from the original stub.
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Task task = (Task) obj;
-        return Objects.equals(id, task.id) &&
-                Objects.equals(title, task.title) &&
-                isCompleted == task.isCompleted;
+        return isCompleted == task.isCompleted &&
+                Objects.equals(id, task.id) &&
+                Objects.equals(title, task.title);
     }
 
     @Override
