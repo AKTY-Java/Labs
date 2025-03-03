@@ -1,4 +1,4 @@
-package edu.ucalgary.oop;
+package edu.ucalgary.oop.edu.ucalgary.oop;
 
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ public class Task {
         Task task = (Task) obj;
         return Objects.equals(id, task.id) &&
                Objects.equals(title, task.title) &&
-               isCompleted == task.isCompleted; 
+               isCompleted == task.isCompleted;
     }
 
     @Override
