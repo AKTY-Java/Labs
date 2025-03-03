@@ -1,4 +1,6 @@
-package edu.ucalgary.oop;
+package edu.ucalgary.oop.edu.ucalgary.oop;
+
+import edu.ucalgary.oop.Task;
 
 class ToDoList implements IToDoList {
     List<Task> taskList = new List<Task>();
