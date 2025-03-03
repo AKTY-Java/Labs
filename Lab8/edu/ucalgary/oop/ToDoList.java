@@ -15,6 +15,7 @@ class ToDoList implements IToDoList {
 
     @Override
     add(Task task) {
+        history.push(taskList);
         taskList.add(task);
     }
 
@@ -22,6 +23,8 @@ class ToDoList implements IToDoList {
     completeTask(String id) {
         int taskIndex;
         Task task;
+
+        history.push(taskList);
         taskIndex = search(id);
         if (task == id) {
             task = taskList.get(taskIndex);
@@ -32,6 +35,8 @@ class ToDoList implements IToDoList {
     @Override
     deleteTask(String id) {
         int taskIndex;
+
+        history.push(taskList);
         taskIndex = search(id);
         if (taskIndex != -1) {
             taskList.remove(taskIndex);
@@ -42,6 +47,8 @@ class ToDoList implements IToDoList {
     editTask(String id, String newTitle, boolean newIsCompleted) {
         int taskIndex = search(id);
         Task task;
+
+        history.push(taskList);
         if (taskIndex != -1) {
             task = taskList.get(taskIndex);
             task.setTitle(newTitle);
@@ -51,7 +58,7 @@ class ToDoList implements IToDoList {
 
     @Override
     undoTask() {
-        
+        taskList = history.pop();
     }
 
     @Override
