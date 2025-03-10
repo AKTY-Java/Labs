@@ -31,8 +31,14 @@ public class Registration{
 //Must create a connection to the database, no arguments, no return value    
     public void initializeConnection(){
 
-/***********ADD CODE HERE***********/                
-/* Throw SQL exception if connection does not work */
+//This is to initialize the connection to the database. The url refers to where the database is created within the local host, and the username
+//and password are there too. DriverManager is put in the try block because it is used to connect. In the catch, there is an SQLexception 
+//in case the database is unreachable or didn't connect. Prints details of the error.
+        try{
+            dbConnect = DriverManager.getConnection("jdbc:postgresql://localhost/competition", "oop", "ucalgary");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
     
@@ -103,14 +109,35 @@ public class Registration{
  
     public void deleteCompetitor(String id){
 
-/***********ADD CODE HERE***********/                
+        try {
+            String query = "DELETE FROM competition WHERE id = ?";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            myStmt.setString(1, id);
+                        
+            int rowCount = myStmt.executeUpdate();
+            System.out.println("Rows affected: " + rowCount);
+            
+            myStmt.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+//Used to delete a competitor in the table. It takes the id in a String of a competitor to remove. Executes the the query competition. 
+//Replaces the question mark with id, and deletes the given competitor based on the id.            
 
 
-    }    
+    }  
+//This is used to close the resources and close the connection after we are done. Results and the database connection are closed.    
 
     public void close() {
-        
-/***********ADD CODE HERE***********/                
+        try {
+            results.close();
+            dbConnect.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
     
