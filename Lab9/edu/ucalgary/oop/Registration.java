@@ -33,7 +33,11 @@ public class Registration{
 
 /***********ADD CODE HERE***********/                
 /* Throw SQL exception if connection does not work */
-
+        try {
+            dbConnect = DriverManager.getConnection("jdbc:postgresql://localhost/competition", "postgres", "root");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     String getDburl(){
@@ -53,8 +57,28 @@ public class Registration{
 
 /***********ADD CODE HERE***********/                
 /* Use selectAllNames method to return a list of competitiors and a list of teachers (two separate calls) Must take in a String for the table name and return a String */
+    String query = "SELECT lname, fname FROM " + tableName;
+    String strResult = "";
+    try {
+        //PreparedStatement statement = dbConnect.prepareStatement(query);
+        //statement.setString(1, tableName);
+        //System.out.println("STATEMENT: " + statement);
+        
+        Statement statement = dbConnect.createStatement();
+        results = statement.executeQuery(query);
 
+        while (results.next()){
+            strResult += results.getString("lname");
+            strResult += ", ";
+            strResult += results.getString("fname");
+            strResult += "\n";
+        }
+        statement.close();
+    } catch (SQLException ex) {
+    ex.printStackTrace();
     }
+    return strResult;
+}    
     
     
     public void insertNewCompetitor(String id, String lName, String fName, int age, String instrument, String teacherID){
