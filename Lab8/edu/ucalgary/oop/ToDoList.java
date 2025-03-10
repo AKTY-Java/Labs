@@ -1,68 +1,68 @@
 package edu.ucalgary.oop;
 
-class ToDoList implements IToDoList {
-    List<Task> taskList = new List<Task>();
-    Stack<List<Task>> history = new Stack<List<Task>>();
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.Iterator;
 
-    search(String id) {
-        for (int i; i < taskList.size(); i++) {
-            if (taskList.get(i).getID == id) {
+class ToDoList implements IToDoList {
+    ArrayList<Task> taskList = new ArrayList<Task>();
+    Stack<ArrayList<Task>> history = new Stack<ArrayList<Task>>();
+
+    int search(String id) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getId() == id) {
                 return i;
             }
         }
         return -1;
     }
 
-    @Override
-    add(Task task) {
-        history.push(taskList);
+    public void addTask(Task task) {
         taskList.add(task);
+        history.push(taskList);
     }
 
-    @Override
-    completeTask(String id) {
+    public void completeTask(String id) {
         int taskIndex;
         Task task;
 
-        history.push(taskList);
         taskIndex = search(id);
-        if (task == id) {
-            task = taskList.get(taskIndex);
+        task = taskList.get(taskIndex);
+        if (task.getId() == id) {
             task.setIsCompleted(true);
+            history.push(taskList);
         }
     }
 
-    @Override
-    deleteTask(String id) {
+    public void deleteTask(String id) {
         int taskIndex;
 
-        history.push(taskList);
         taskIndex = search(id);
         if (taskIndex != -1) {
             taskList.remove(taskIndex);
+            history.push(taskList);
         }
     }
 
-    @Override
-    editTask(String id, String newTitle, boolean newIsCompleted) {
+    public void editTask(String id, String newTitle, boolean newIsCompleted) {
         int taskIndex = search(id);
         Task task;
 
-        history.push(taskList);
         if (taskIndex != -1) {
             task = taskList.get(taskIndex);
             task.setTitle(newTitle);
             task.setIsCompleted(newIsCompleted);
+            history.push(taskList);
         }
     }
 
-    @Override
-    undoTask() {
-        taskList = history.pop();
+    public void undo() {
+        if (!history.isEmpty()) {
+            taskList = history.pop();
+        }
     }
 
-    @Override
-    listTask() {
+    public ArrayList<Task> listTasks() {
         return taskList;
     }
 }
