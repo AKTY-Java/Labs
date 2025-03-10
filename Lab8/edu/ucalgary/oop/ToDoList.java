@@ -1,70 +1,68 @@
 package edu.ucalgary.oop;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
+import java.util.Iterator;
 
-public class ToDoList implements IToDoList {
-    private List<Task> tasks;
-    private Stack<List<Task>> history;
+class ToDoList implements IToDoList {
+    ArrayList<Task> taskList = new ArrayList<Task>();
+    Stack<ArrayList<Task>> history = new Stack<ArrayList<Task>>();
 
-    public ToDoList() {
-        tasks = new ArrayList<>();
-        history = new Stack<>();
-    }
-
-    private void pushCurrentStateToHistory() {
-        List<Task> tasksCopy = new ArrayList<>();
-        for (Task t : tasks) {
-            tasksCopy.add(t.copy());
+    int search(String id) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getId() == id) {
+                return i;
+            }
         }
-        history.push(tasksCopy);
+        return -1;
     }
 
-    @Override
     public void addTask(Task task) {
-        pushCurrentStateToHistory();
-        tasks.add(task);
+        taskList.add(task);
+        history.push(taskList);
     }
 
-    @Override
     public void completeTask(String id) {
-        pushCurrentStateToHistory();
-        for (Task t : tasks) {
-            if (t.getId().equals(id)) {
-                t.setCompleted(true);
-                break;
-            }
+        int taskIndex;
+        Task task;
+
+        taskIndex = search(id);
+        task = taskList.get(taskIndex);
+        if (task.getId() == id) {
+            task.setIsCompleted(true);
+            history.push(taskList);
         }
     }
 
-    @Override
     public void deleteTask(String id) {
-        pushCurrentStateToHistory();
-        tasks.removeIf(t -> t.getId().equals(id));
-    }
+        int taskIndex;
 
-    @Override
-    public void editTask(String id, String newTitle, boolean newIsCompleted) {
-        pushCurrentStateToHistory();
-        for (Task t : tasks) {
-            if (t.getId().equals(id)) {
-                t.setTitle(newTitle);
-                t.setCompleted(newIsCompleted);
-                break;
-            }
+        taskIndex = search(id);
+        if (taskIndex != -1) {
+            taskList.remove(taskIndex);
+            history.push(taskList);
         }
     }
 
-    @Override
+    public void editTask(String id, String newTitle, boolean newIsCompleted) {
+        int taskIndex = search(id);
+        Task task;
+
+        if (taskIndex != -1) {
+            task = taskList.get(taskIndex);
+            task.setTitle(newTitle);
+            task.setIsCompleted(newIsCompleted);
+            history.push(taskList);
+        }
+    }
+
     public void undo() {
         if (!history.isEmpty()) {
-            tasks = history.pop();
+            taskList = history.pop();
         }
     }
 
-    @Override
-    public List<Task> listTasks() {
-        return tasks;
+    public ArrayList<Task> listTasks() {
+        return taskList;
     }
 }
