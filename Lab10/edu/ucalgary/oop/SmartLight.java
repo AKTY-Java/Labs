@@ -21,7 +21,7 @@ public class SmartLight extends SmartDevice<Boolean> {
             case "Vacation":
                 boolean newState = Math.random() < 0.5; // Randomly turn ON/OFF
                 setState(newState);
-                System.out.println("SmartLight is " + (newState ? "ON. Brighting the room." : "OFF. Room is dark"));
+                System.out.println("SmartLight is " + (newState ? "ON. Brighting the room." : "OFF. Room is dark. "));
                 break;
             default:
                 System.out.println("SmartLight: Unknown message - " + message);

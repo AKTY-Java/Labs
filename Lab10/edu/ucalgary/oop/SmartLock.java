@@ -34,13 +34,14 @@ public class SmartLock extends SmartDevice<Boolean> {
         }).start();
     }
 
-    private void performAction() {
+    @Override
+    protected void performAction() {
         if (getState()) {
-            System.out.print("SmartLock is Locked");
-            System.out.print("Securing the door");
+            System.out.print("SmartLock is Locked. ");
+            System.out.print("Securing the door. ");
         } else {
-            System.out.print("SmartLock is Unlocked.");
-            System.out.print("Door is open.");
+            System.out.print("SmartLock is Unlocked. ");
+            System.out.print("Door is open. ");
         }
     }
 }
