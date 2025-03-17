@@ -35,7 +35,7 @@ public class Registration{
 //and password are there too. DriverManager is put in the try block because it is used to connect. In the catch, there is an SQLexception 
 //in case the database is unreachable or didn't connect. Prints details of the error.
         try{
-            dbConnect = DriverManager.getConnection("jdbc:postgresql://localhost/competition", "postgres", "root");
+            dbConnect = DriverManager.getConnection("jdbc:postgresql://localhost/competition", "oop", "ucalgary");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,22 +92,6 @@ public class Registration{
         if(age < 5 || age > 18){
             throw new IllegalArgumentException("Student must be between the ages of 5 and 18.");
         }
-
-        try {
-            String sql = "INSERT INTO competitor (competitorid, lname, fname, age, instrument, teacherid) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement pstmt = dbConnect.prepareStatement(sql);
-            pstmt.setString(1, id);
-            pstmt.setString(2, lName);
-            pstmt.setString(3, fName);
-            pstmt.setInt(4, age);
-            pstmt.setString(5, instrument);
-            pstmt.setString(6, teacherID);
-            pstmt.executeUpdate();
-            pstmt.close();
-        } catch(SQLException e){
-            e.printStackTrace();
-        }
              
 
 /***********ADD CODE HERE***********/                
@@ -146,7 +130,7 @@ public class Registration{
     public void deleteCompetitor(String id){
 
         try {
-            String query = "DELETE FROM competitor WHERE competitorid = ?";
+            String query = "DELETE FROM competition WHERE id = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
 
             myStmt.setString(1, id);
