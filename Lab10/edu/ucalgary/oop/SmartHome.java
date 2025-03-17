@@ -16,23 +16,33 @@ public class SmartHome {
     // Build the SmartHome (finalizes the setup)
     public SmartHome build() {
         // TODO: Implement build functionality
+        isBuilt = true;
+        return this;
     }
 
     // Set device state (only allowed after build)
-    public <T> void setDeviceState(SmartDevice<T> device, T state) {
+    public <T> void setDeviceState(SmartDevice<T> device, T state) throws IllegalStateException {
         // TODO: Implement setDeviceState functionality
-        for (SmartDevice dev : devices) {
-            if (device == dev) {
-                device.setState(state);
+        if (isBuilt) {
+            for (SmartDevice dev : devices) {
+                if (device == dev) {
+                    device.setState(state);
+                }
             }
+        } else {
+            throw new IllegalStateException();
         }
     }
 
     // Send overarching messages (only allowed after build)
-    public void sendMessage(String message) {
+    public void sendMessage(String message) throws IllegalStateException {
         // TODO: Implement sendMessage functionality
-        for (SmartDevice device : devices) {
-            device.update(message);
+        if (isBuilt) {
+            for (SmartDevice device : devices) {
+                device.update(message);
+            }
+        } else {
+            throw new IllegalStateException();
         }
     }
 }
