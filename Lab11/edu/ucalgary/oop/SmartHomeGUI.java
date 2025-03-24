@@ -4,5 +4,5 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class SmartHomeGUI {
+public class SmartHomeGUI extends JFrame{
 }
